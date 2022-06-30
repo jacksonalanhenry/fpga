@@ -1,0 +1,26 @@
+#+title: Fpga Setup
+* Document Purpose
+Starting from 'scratch' for FPGA development is tedious and hard. For me, and many other Electrial Engineering Students, learning about FPGA development was mostly learning Digital Logic and RTL Design.Our professors told us to open up Vivado and write a couple adders, multiplexer, and some flip-flops, connect them together and click the little play button to begin the simulation.
+Learning programming languages has always been the easy part, but getting into a development environment, and understanding all the different steps to go from a blank folder to a project that can be uploaded to an FPGA board feels impossible to understand. There seems to be a bunch of different tools that all do similar things, but because they have always been in the same IDE I have trouble distinguishing difference and purpose between them.
+
+I am writing this document in order to help me categorize all the little pieces and frustrations I've experienced as I try to go from a blank folder to a simple counter simulation.
+* Tools
+** Simulator
+I'm going to be attempting to use Icarus Verilog as my simulator
+*** Icarus Verilog
+*** Verilator
+*** Aldec Riviera
+*** Mentor Questa
+*** Xilinx Vivado
+** Waveform Viewer
+I'm going to attempt to use GTKWave
+** Synthesizer
+I'm not going to concern myself with actual hardware for now because that tends to be hardware/project specific. Maybe I will add on to this later.
+** Compiler
+* Basic Workflow
+** Write your modules
+** Write your testbench
+** Simulate
+** View waveform with waveform viewer
+** Compile
+** Program your Board
