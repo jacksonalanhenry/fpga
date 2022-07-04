@@ -1,7 +1,7 @@
 module basicCounter (A,B);
 
    input A;
-   input B;
+   output B;
 
    assign B=A;
 
