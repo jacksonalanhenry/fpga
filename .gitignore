@@ -1,1 +1,3 @@
 /.projectile
+build/*
+sim/outputs/*
