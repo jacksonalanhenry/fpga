@@ -1,5 +1,5 @@
 # Testbench selection
-TEST ?= clk_divider
+TEST ?= phase_accumulator
 
 # Source mapping
 VERILOG_SOURCES = rtl/$(TEST).v
@@ -34,6 +34,7 @@ wave: run
 all_tests:
 	$(MAKE) TEST=clk_divider
 	$(MAKE) TEST=osc_square
+	$(MAKE) TEST=phase_accumulator
 
 # Directories
 $(OBJ_DIR):
