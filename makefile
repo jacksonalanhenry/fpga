@@ -29,7 +29,7 @@ run: $(EXE) | $(OUTPUTS_DIR)
 
 # Open waveform
 wave: run
-	gtkwave $(WAVEFILE)
+	gtkwave $(WAVEFILE) --autosavename
 
 all_tests:
 	$(MAKE) TEST=clk_divider
