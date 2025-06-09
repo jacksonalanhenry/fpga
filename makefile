@@ -11,6 +11,7 @@ OBJ_DIR = $(BUILD_DIR)/obj_dir_$(TEST)
 OUTPUTS_DIR = sim/outputs
 EXE = $(OBJ_DIR)/V$(TEST)
 WAVEFILE = $(OUTPUTS_DIR)/$(TEST)_wave.vcd
+WAVEFORMS = $(OUTPUTS_DIR)/$(TEST)_wave.gtkw
 
 # Verilator options
 VERILATOR_FLAGS = -Wall --cc --exe --trace --Mdir $(OBJ_DIR)
@@ -29,6 +30,11 @@ run: $(EXE) | $(OUTPUTS_DIR)
 
 # Open waveform
 wave: run
+	@# Create the .gtkw file if it doesn't exist
+	@if [ ! -f $(WAVEFORMS) ]; then \
+		echo "Creating empty waveform layout: $(WAVEFORMS)"; \
+		touch $(WAVEFORMS); \
+	fi
 	gtkwave $(WAVEFILE) --autosavename
 
 all_tests:
@@ -47,7 +53,13 @@ $(OUTPUTS_DIR):
 clean:
 	rm -rf $(BUILD_DIR)
 	rm -f sim/outputs/*.vcd
+	rm -f sim/outputs/*.gtkw
 	rm -f V*
 
-.PHONY: all run wave clean
+# Create clangd's compile_commands using bear
+compile_commands:
+	rm -f compile_commands.json
+	bear -- make all_tests
+
+.PHONY: all run wave clean compile_commands
 
