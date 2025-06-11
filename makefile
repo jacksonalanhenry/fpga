@@ -35,7 +35,7 @@ wave: run
 		echo "Creating empty waveform layout: $(WAVEFORMS)"; \
 		touch $(WAVEFORMS); \
 	fi
-	gtkwave $(WAVEFILE) --autosavename
+	gtkwave $(WAVEFILE) --autosavename --rcvar splash_display=0
 
 all_tests:
 	$(MAKE) TEST=clk_divider
