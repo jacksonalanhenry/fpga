@@ -1,5 +1,5 @@
 # Testbench selection
-TEST ?= phase_accumulator
+TEST ?= sin_wave_lut
 
 # Source mapping
 VERILOG_SOURCES = rtl/$(TEST).v
@@ -35,12 +35,13 @@ wave: run
 		echo "Creating empty waveform layout: $(WAVEFORMS)"; \
 		touch $(WAVEFORMS); \
 	fi
-	gtkwave $(WAVEFILE) --autosavename --rcvar splash_display=0
+	gtkwave --autosavename --rcvar "splash_disable on" $(WAVEFILE)
 
 all_tests:
 	$(MAKE) TEST=clk_divider
 	$(MAKE) TEST=osc_square
 	$(MAKE) TEST=phase_accumulator
+	$(MAKE) TEST=sin_wave_lut
 
 # Directories
 $(OBJ_DIR):
