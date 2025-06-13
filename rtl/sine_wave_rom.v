@@ -1,4 +1,4 @@
-module sin_wave_lut #(
+module sine_wave_rom #(
     parameter PHASE_WIDTH  = 32,
     parameter ADDR_WIDTH   = 8,
     parameter SAMPLE_WIDTH = 16
@@ -23,7 +23,8 @@ module sin_wave_lut #(
   logic signed [SAMPLE_WIDTH-1:0] sine_rom[0:(1 << ADDR_WIDTH)-1];
 
   initial begin
-    // Load values from external file (hex format)
+    // This right here is the implementation of the LUT
+    // right now it is only in simulation, must change for hardware
     $readmemh("sim/lut/sine_rom.hex", sine_rom);
   end
 

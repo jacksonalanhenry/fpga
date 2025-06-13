@@ -1,4 +1,4 @@
-#include "Vsin_wave_lut.h"
+#include "Vsine_wave_rom.h"
 #include "verilated.h"
 #include <cmath>
 #include <cstdint>
@@ -8,8 +8,8 @@
 
 int main(int argc, char** argv) {
     Verilated::commandArgs(argc, argv);
-    Vsin_wave_lut* top = new Vsin_wave_lut;
-    const int top_latency = 1;
+    Vsine_wave_rom* top = new Vsine_wave_rom;
+    const int top_latency = 1; //implemented with LUT, therefore 1 cycle latency
 
     const int num_cycles = 256;
     const int addr_width = 8;
@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
                 int16_t actual = top->sine_sample;
 
                 // Accept small error margin (LUT precision)
-                assert(std::abs(expected - actual) <= 1 && "Mismatch in sine LUT output");
+                assert(std::abs(expected - actual) <= 1 && "Mismatch in sine ROM output");
 
                 //print some extra debug output
                 std::cout << "Cycle " << (i / 2)

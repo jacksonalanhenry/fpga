@@ -1,5 +1,5 @@
 # Testbench selection
-TEST ?= sin_wave_lut
+TEST ?= sine_wave_rom
 
 # Source mapping
 VERILOG_SOURCES = rtl/$(TEST).v
