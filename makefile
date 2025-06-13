@@ -62,5 +62,17 @@ compile_commands:
 	rm -f compile_commands.json
 	bear -- make all_tests
 
-.PHONY: all run wave clean compile_commands
+# Paths
+GEN_BIN = build/gen_sin_lut
+HEX_OUT = sim/lut/sine_rom.hex
+
+# Target to build and run the LUT generator
+gen_sin_lut: $(HEX_OUT)
+
+$(HEX_OUT): sim/lut/generate_sin_lut.cpp
+	@mkdir -p $(dir $(GEN_BIN))
+	@g++ -std=c++17 -o $(GEN_BIN) sim/lut/generate_sin_lut.cpp
+	@$(GEN_BIN)
+
+.PHONY: all run wave clean compile_commands gen_sin_lut
 
