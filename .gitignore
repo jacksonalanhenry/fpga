@@ -1,3 +1,4 @@
 /.projectile
 build/*
 sim/outputs/*
+compile_commands.json
