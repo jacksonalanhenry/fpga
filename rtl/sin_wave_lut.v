@@ -24,7 +24,7 @@ module sin_wave_lut #(
 
   initial begin
     // Load values from external file (hex format)
-    $readmemh("sim/lut/sine_rom_zero.hex", sine_rom);
+    $readmemh("sim/lut/sine_rom.hex", sine_rom);
   end
 
   always_ff @(posedge clk) begin
