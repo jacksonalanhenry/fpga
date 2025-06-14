@@ -1,8 +1,8 @@
 # Testbench selection
-TEST ?= sine_wave_rom
+TEST ?= nco
 
 # Source mapping
-VERILOG_SOURCES = rtl/$(TEST).v
+VERILOG_SOURCES = rtl/$(TEST).v rtl/phase_accumulator.v rtl/sine_wave_rom.v
 CPP_SOURCES = sim/$(TEST)_testbench.cpp
 
 # Output directories and files
