@@ -2,7 +2,7 @@
 TEST ?= nco
 
 # Source mapping
-VERILOG_SOURCES = rtl/$(TEST).v rtl/phase_accumulator.v rtl/sine_wave_rom.v
+VERILOG_SOURCES = rtl/$(TEST).v 
 CPP_SOURCES = sim/$(TEST)_testbench.cpp
 
 # Output directories and files
@@ -15,6 +15,12 @@ WAVEFORMS = $(OUTPUTS_DIR)/$(TEST)_wave.gtkw
 
 # Verilator options
 VERILATOR_FLAGS = -Wall --cc --exe --trace --Mdir $(OBJ_DIR)
+
+
+# Add extra sources for NCO
+ifeq ($(TEST),nco)
+  VERILOG_SOURCES += rtl/phase_accumulator.v rtl/sine_wave_rom.v
+endif
 
 # Default target
 all: run
@@ -38,10 +44,10 @@ wave: run
 	gtkwave --autosavename --rcvar "splash_disable on" $(WAVEFILE)
 
 all_tests:
-	# $(MAKE) TEST=clk_divider
-	# $(MAKE) TEST=osc_square
-	# $(MAKE) TEST=phase_accumulator
-	# $(MAKE) TEST=sin_wave_lut
+	$(MAKE) TEST=clk_divider
+	$(MAKE) TEST=osc_square
+	$(MAKE) TEST=phase_accumulator
+	$(MAKE) TEST=sine_wave_rom
 	$(MAKE) TEST=nco
 
 # Directories
