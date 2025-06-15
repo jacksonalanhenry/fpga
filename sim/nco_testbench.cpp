@@ -9,8 +9,8 @@
 
 
 
-#define NUM_CYCLES 300
-#define FREQ_WORD  (uint32_t(1) << 24)  // tune for ~1Hz output if clk is 100MHz
+#define NUM_CYCLES 200
+#define FREQ_WORD  (uint32_t(10) << 24)  // tune for ~1Hz output if clk is 100MHz
 #define LUT_SIZE 256
 #define MAX_AMPLITUDE 32767
 
@@ -87,7 +87,6 @@ int main(int argc, char** argv) {
             int16_t actual = static_cast<int16_t>(nco->sine_out);
 
             std::cout << "Clock Tick " << clk_tick
-                      << " | Addr: " << int(expected_index)
                       << " | Expected: " << expected
                       << " | Actual: " << actual
                       << std::endl;

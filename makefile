@@ -38,10 +38,11 @@ wave: run
 	gtkwave --autosavename --rcvar "splash_disable on" $(WAVEFILE)
 
 all_tests:
-	$(MAKE) TEST=clk_divider
-	$(MAKE) TEST=osc_square
-	$(MAKE) TEST=phase_accumulator
-	$(MAKE) TEST=sin_wave_lut
+	# $(MAKE) TEST=clk_divider
+	# $(MAKE) TEST=osc_square
+	# $(MAKE) TEST=phase_accumulator
+	# $(MAKE) TEST=sin_wave_lut
+	$(MAKE) TEST=nco
 
 # Directories
 $(OBJ_DIR):
