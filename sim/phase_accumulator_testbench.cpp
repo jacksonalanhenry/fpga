@@ -13,21 +13,28 @@ int main(int argc, char** argv) {
 
     top->rst = 1;
     top->clk = 0;
+    top->in_valid = 0;
+    top->out_ready = 0;
     top->phase_inc = phase_inc;
     top->eval();
 
     // Deassert reset
     top->rst = 0;
+    top->in_valid = 1;
+    top->out_ready = 1;
 
     for (int i = 0; i < num_cycles * 2; ++i) {
         top->clk = !top->clk;
         top->eval();
 
-        if (top->clk) {
+        if (top->clk && top->out_valid) {
             expected_phase += phase_inc;
 
+
+            std::cout << "Cycle " << i / 2 
+                << ": expected = " << expected_phase 
+                << ", phase_out = " << top->phase_out << "\n";
             assert(top->phase_out == expected_phase && "Phase accumulator mismatch");
-            std::cout << "Cycle " << i / 2 << ": phase_out = " << top->phase_out << "\n";
         }
     }
 
