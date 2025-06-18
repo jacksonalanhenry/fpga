@@ -4,14 +4,18 @@ module sine_wave_rom #(
     parameter SAMPLE_WIDTH = 16
 ) (
     input logic clk,
+    input logic rst,
 
+    input logic in_valid,
+    output logic in_ready,
     // Only top ADDR_WIDTH bits used for LUT indexing
     // Lower bits of phase are reserved for future interpolation logic
     /* verilator lint_off UNUSEDSIGNAL */
     input logic [PHASE_WIDTH-1:0] phase,
     /* verilator lint_on UNUSEDSIGNAL */
 
-
+    output logic out_valid,
+    input logic out_ready,
     output logic signed [SAMPLE_WIDTH-1:0] sine_sample
 );
 
@@ -28,9 +32,26 @@ module sine_wave_rom #(
     $readmemh("sim/lut/sine_rom.hex", sine_rom);
   end
 
-  always_ff @(posedge clk) begin
-    sine_sample <= sine_rom[addr];
+  logic [ADDR_WIDTH-1:0] addr_reg;
+  logic out_valid_reg;
+
+  always_ff @(posedge clk or posedge rst) begin
+    if (rst) begin
+      addr_reg      <= 0;
+      out_valid_reg <= 0;
+    end else begin
+      if (in_valid && in_ready) begin
+        addr_reg <= addr;
+        out_valid_reg <= 1'b1;
+      end else if (out_ready) begin
+        out_valid_reg <= 1'b0;
+      end
+    end
   end
+
+  assign sine_sample = sine_rom[addr_reg];
+  assign out_valid   = out_valid_reg;
+  assign in_ready    = !out_valid_reg || out_ready;
 
 endmodule
 
