@@ -1,16 +1,21 @@
 services:
-  dev:
-    build: .
+  verilator:
+    build:
+      context: .
+    image: verilator
     container_name: verilator
     environment:
       - DISPLAY=${DISPLAY}
+      - XAUTHORITY=${XAUTHORITY}
+      - USER_ID=${DOCKER_USER}
+      - GROUP_ID=${DOCKER_GROUP}
+      - USER_NAME=dev
+    user: "0:0"
     volumes:
-      - ./src:${HOME}/src
-      - ./nvim:${HOME}/.config/nvim
-      - ${HOME}/.local/share/nvim:${HOME}/.local/share/nvim # Optional: plugins
-    working_dir: ${HOME}/src
-    network_mode: "host"
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${XAUTHORITY}:${XAUTHORITY}
+      - ./:/workspace/src
+    working_dir: /workspace/src
     stdin_open: true
     tty: true
-    command: bash
-
+    network_mode: host

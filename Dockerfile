@@ -15,6 +15,7 @@ RUN apt update && apt install -y \
   libx11-dev libxft-dev libxext-dev \
   libfftw3-dev \
   xauth x11-apps \
+  gosu \
   && apt clean
 
 RUN apt install -y software-properties-common && \
@@ -22,3 +23,8 @@ RUN apt install -y software-properties-common && \
     apt update && \
     apt install -y neovim
 
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/bin/bash"]
