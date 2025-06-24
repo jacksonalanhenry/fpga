@@ -7,8 +7,8 @@ services:
     environment:
       - DISPLAY=${DISPLAY}
       - XAUTHORITY=${XAUTHORITY}
-      - USER_ID=${DOCKER_USER}
-      - GROUP_ID=${DOCKER_GROUP}
+      - USER_ID=${UID}
+      - GROUP_ID=${GID}
       - USER_NAME=dev
     user: "0:0"
     volumes:
