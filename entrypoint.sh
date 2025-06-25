@@ -8,6 +8,15 @@ if ! id -u "$USER_NAME" >/dev/null 2>&1; then
   useradd -m -u "$USER_ID" -g "$GROUP_ID" -s /bin/bash "$USER_NAME"
 fi
 
-# Switch to the new user and run bash
-exec gosu "$USER_NAME" "$@"
+echo "[entrypoint] User: $USER_NAME ($USER_ID:$GROUP_ID)"
+echo "[entrypoint] Command: $@"
+
+if [ $# -eq 0 ]; then
+  echo "[entrypoint] No command passed — running interactive bash"
+  exec gosu "$USER_NAME" bash
+else
+  echo "[entrypoint] Running: $@"
+  exec gosu "$USER_NAME" "$@"
+fi
+
 
